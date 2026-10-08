@@ -1,0 +1,13 @@
+.VENV/
+.env
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.pytest_cache/
+
+# Thurro exports are licensed data and are not redistributed in the repository.
+# Each teammate exports them into data/raw/thurro/<dataset>/ locally.
+data/raw/**/*.csv*
+data/raw/**/*.xlsx
+data/processed/**/*.parquet
+data/processed/**/*.csv
