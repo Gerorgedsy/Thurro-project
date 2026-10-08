@@ -1,0 +1,100 @@
+{
+  "window": {
+    "comment": [
+      "Monthly periods are identified by their first day. The window is",
+      "half-open: start is included and end is not, matching project 1.",
+      "TODO: set start to the first month every dataset covers once the",
+      "exports are in hand."
+    ],
+    "start": "2016-04-01",
+    "end": "2026-10-01"
+  },
+  "cities": {
+    "comment": [
+      "Canonical city name -> spellings seen in the sources. Matching is",
+      "case- and whitespace-insensitive. Aliases only rename; they never",
+      "merge two different markets, so Gurugram and Noida are not folded",
+      "into Delhi. Extend this list after looking at the real exports."
+    ],
+    "aliases": {
+      "Ahmedabad": ["Amdavad"],
+      "Bengaluru": ["Bangalore"],
+      "Chennai": ["Madras"],
+      "Delhi": ["New Delhi", "NCT of Delhi"],
+      "Gurugram": ["Gurgaon"],
+      "Hyderabad": [],
+      "Kolkata": ["Calcutta"],
+      "Mumbai": ["Bombay", "Greater Mumbai"],
+      "Mumbai Metropolitan Region": ["MMR"],
+      "Noida": [],
+      "Pune": ["Poona"],
+      "Thane": []
+    }
+  },
+  "datasets": {
+    "launch_sales": {
+      "description": "Residential new-launch and sales units by city (Thurro).",
+      "role": "feature",
+      "geography": "city",
+      "frequency": "monthly",
+      "release_lag_days": 15,
+      "columns": {
+        "period": "Relevant_Date",
+        "geography": "City",
+        "metrics": {
+          "units_launched": "Units_Launched",
+          "units_sold": "Units_Sold"
+        }
+      },
+      "unit": "units",
+      "plausible": {"min": 0}
+    },
+    "project_registrations": {
+      "description": "Residential project registrations (RERA) by city (Thurro).",
+      "role": "feature",
+      "geography": "city",
+      "frequency": "monthly",
+      "release_lag_days": 7,
+      "columns": {
+        "period": "Relevant_Date",
+        "geography": "City",
+        "metrics": {
+          "projects_registered": "Projects_Registered"
+        }
+      },
+      "unit": "projects",
+      "plausible": {"min": 0}
+    },
+    "lending_rates": {
+      "description": "Bank lending rates, used as a control (Thurro).",
+      "role": "control",
+      "geography": "national",
+      "frequency": "monthly",
+      "release_lag_days": 30,
+      "columns": {
+        "period": "Relevant_Date",
+        "metrics": {
+          "lending_rate_pct": "Lending_Rate"
+        }
+      },
+      "unit": "percent",
+      "plausible": {"min": 0, "max": 25}
+    },
+    "core_industries": {
+      "description": "Index of Eight Core Industries, cement sub-index (Thurro).",
+      "role": "target",
+      "geography": "national",
+      "frequency": "monthly",
+      "release_lag_days": 20,
+      "columns": {
+        "period": "Relevant_Date",
+        "filter": {"column": "Industry", "equals": "Cement"},
+        "metrics": {
+          "cement_index": "Index_Value"
+        }
+      },
+      "unit": "index",
+      "plausible": {"min": 0}
+    }
+  }
+}
